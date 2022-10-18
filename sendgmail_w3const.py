@@ -52,11 +52,11 @@ def chkwhite(e):
         with open(os.environ['HOME'] + '/.sendgmail_w3const/whitelist', 'r', encoding = 'utf-8') as f:
             white = []
             white = f.read().split('\n')
-        filter(None, white)
-        print(white)
+        white2 = [x for x in white if x]
+        print(white2)
         c = 0
         for v in e:
-            if v not in white:
+            if v not in white2:
                 print(v + ' is not found in the whitelist file.')
                 c += 1
         return c
