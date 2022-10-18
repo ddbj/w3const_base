@@ -53,7 +53,7 @@ def chkwhite(e):
             white = []
             white = f.read().split('\n')
         white2 = [x for x in white if x]
-        print(white2)
+        print('Whitelist email: ' + white2)
         c = 0
         for v in e:
             if v not in white2:
