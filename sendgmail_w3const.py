@@ -53,8 +53,8 @@ def chkwhite(e):
             white = []
             white = f.read().split('\n')
         white2 = [x for x in white if x]
-        print('Whitelist email: ', end='')
-        print(white2)
+        # print('Whitelist email: ', end='')
+        # print(white2)
         c = 0
         for v in e:
             if v not in white2:
@@ -110,7 +110,7 @@ def main():
         emails += opt.cc.split(',')
     if opt.bcc:
         emails += opt.bcc.split(',')
-    print(emails)
+    # print(emails)
     chk = chkwhite(emails)
     if chk == 0:
         with open(opt.body, 'r', encoding = 'utf-8') as fbody:
