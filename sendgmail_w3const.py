@@ -31,7 +31,7 @@ def accountinfo():
     except FileNotFoundError:
         print('~/.sendgmail_w3const/account is not found. Create it as indicated below.')
         print('')
-        print('mkdir -mp 700 ~/.sendgmail_w3const')
+        print('mkdir -m 700 -p ~/.sendgmail_w3const')
         print('echo GmailAccount:ApplicationPassword > ~/.sendgmail_w3const/account')
         print('chmod 400 ~/.sendgmail_w3const/account')
         sys.exit()
@@ -61,7 +61,7 @@ def chkwhite(e):
     except FileNotFoundError:
         print('~/.sendgmail_w3const/whitelist is not found. Create it as follows.')
         print('')
-        print('mkdir -mp 700 ~/.sendgmail_w3const')
+        print('mkdir -m 700 -p ~/.sendgmail_w3const')
         print('touch ~/.sendgmail_w3const/whitelist; chmod 600 ~/.sendgmail_w3const/whitelist')
         print('Write an email address in each line.')
         sys.exit()
