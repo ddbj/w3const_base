@@ -12,7 +12,7 @@ python3 sendgmail_w3const.py [-h] --sj subject --to email --body file [--cc emai
 Prepare credential and white list files in advance.
 1. Create a credential file to run the script.
 ~~~  
-mkdir -m 700 ~/.sendgmail_w3const
+mkdir -m 700  ~/.sendgmail_w3const
 echo 'GmailAccount:ApplicationPassword' > ~/.sendgmail_w3const/account
 chmod 400 ~/.sendgmail_w3const/account
 ~~~
