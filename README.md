@@ -7,7 +7,7 @@ Sends email from w3const@.
 Requirement: > python3.6
 
 Usage:
-sendgmail_w3const.py [-h] --sj subject --to email --body file [--cc email] [--bcc email] [--att file]
+python3 sendgmail_w3const.py [-h] --sj subject --to email --body file [--cc email] [--bcc email] [--att file]
 
 Prepare credential and white list files in advance.
 1. Create a credential file to run the script.
