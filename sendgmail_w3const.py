@@ -52,7 +52,7 @@ def chkwhite(e):
         with open(os.environ['HOME'] + '/.sendgmail_w3const/whitelist', 'r', encoding = 'utf-8') as f:
             white = []
             white = f.read().split('\n')
-        white.pop(-1)
+        filter(None, white)
         print(white)
         c = 0
         for v in e:
