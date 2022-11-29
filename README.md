@@ -1,6 +1,9 @@
 # w3const_base
 Common tools for w3const project
 
+## bin/
+Useful x64 binaries are placed here.
+
 ## sendgmail_w3const.py
 Sends email from w3const@.
 
