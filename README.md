@@ -20,6 +20,16 @@ cd ~/Working Directory
 ./Getblastdb_ncbi.sh
 ~~~
 
+### Variables
+* DBNAME ... blast db to be downloaded.
+* MAXTRY ... Retry download until the times, when a downloaded file is broken.
+* BASE ... Base directory for running the script.
+* DBSRC ... URL of NCBI data resource.
+* DATLOC ... Usually, the latest tar.gz archives from NCBI are placed. When failed to download, the files are copied from DATLOCF directory.
+* DATLOCF ... Former tar.gz archives from NCBI are placed.
+* JSONLOC ... Manifest json files from NCBI. Each file are downloaded based on the information in the json file.
+* BDB ... A directory where decompressed data are placed.
+
 ## sendgmail_w3const.py
 Sends email from w3const@.
 
