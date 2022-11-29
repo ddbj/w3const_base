@@ -13,8 +13,11 @@ To run the script, you must confirm that jq and pigz binaries exist on ~/w3const
 cd ~/w3const_base
 git pull
 ~~~
+
 Usage:
-Edit the variable 'BASE' in the script. The 'BASE' is your working directory.
+
+1. Edit the variable 'BASE' in the script. The 'BASE' is your working directory.
+2. 
 ~~~
 cd ~/Working Directory
 ./Getblastdb_ncbi.sh
@@ -25,7 +28,7 @@ cd ~/Working Directory
 * MAXTRY ... Retry download until the times, when a downloaded file is broken.
 * BASE ... Base directory for running the script.
 * DBSRC ... URL of NCBI data resource.
-* DATLOC ... Usually, the latest tar.gz archives from NCBI are placed. When failed to download, the files are copied from DATLOCF directory.
+* DATLOC ... Usually, the latest tar.gz archives from NCBI are placed. When the downloading was failed, the tar.gz files are copied from DATLOCF directory.
 * DATLOCF ... Former tar.gz archives from NCBI are placed.
 * JSONLOC ... Manifest json files from NCBI. Each file are downloaded based on the information in the json file.
 * BDB ... A directory where decompressed data are placed.
