@@ -15,8 +15,10 @@ git pull
 ~~~
 Usage:
 Edit the variable 'BASE' in the script. The 'BASE' is your working directory.
+~~~
 cd ~/Working Directory
 ./Getblastdb_ncbi.sh
+~~~
 
 ## sendgmail_w3const.py
 Sends email from w3const@.
