@@ -16,8 +16,9 @@ git pull
 
 Usage:
 
+1. Copy the script to your work directory.
 1. Edit the variable 'BASE' in the script. The 'BASE' is your working directory.
-2. Run the script.
+1. Run the script.
 ~~~
 cd ~/Working Directory
 ./Getblastdb_ncbi.sh
