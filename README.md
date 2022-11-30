@@ -24,7 +24,8 @@ cd ~/Working Directory
 ./Getblastdb_ncbi.sh
 ~~~
 
-### Variables
+Variables:
+
 * DBNAME ... blast db to be downloaded.
 * MAXTRY ... Retry download until the times, when a downloaded file is broken.
 * BASE ... Base directory for running the script.
