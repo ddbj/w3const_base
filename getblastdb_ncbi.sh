@@ -4,6 +4,8 @@
 # If you want to download blast data regardless of the update date in metadata-json,
 # erase the ftplog/*.json files before you run the script.
 
+export LANG=C
+# Blast database having its own meta file.
 DBNAME=("nr-prot" \
 "nt-nucl" \
 "16S_ribosomal_RNA-nucl" \
@@ -26,15 +28,20 @@ DBNAME=("nr-prot" \
 "refseq_select_prot-prot" \
 "refseq_select_rna-nucl" \
 "mito-nucl" \
-"swissprot-prot" \
 "env_nr-prot" \
 "env_nt-nucl" \
 "pataa-prot" \
 "patnt-nucl" \
 "pdbaa-prot" \
 "pdbnt-nucl" \
+"tsa_nr-prot" \
+"tsa_nt-nucl" \
 "Betacoronavirus-nucl" \
+"swissprot-prot" \
 "taxdb")
+
+# cdd_delta has no metadata. Probably update is very rare.
+DBWOMETA=("cdd_delta")
 
 MAXTRY=5
 BASE="${HOME}/work-kosuge"
@@ -49,7 +56,8 @@ if [ ! -e ${BASE} ] ; then
 echo "You need to prepare ${BASE} directory before running."
 exit 1
 fi
-if [ ! -e ${HOME}/.aspera/connect/bin/ascp ] ; then
+which ascp
+if [ $? -eq 1 ] ; then
 echo "You need to install IBM aspera connect to your home."
 exit 1
 fi
@@ -79,7 +87,8 @@ getjsondb() {
     CNT=1
     while [ "$CNT" -le "$MAXTRY" ]; do
       curl -s -O --retry 2 $FURL.md5
-      ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
+      # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
+      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
       # wget -q -T 60 -t 2 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL.md5
@@ -123,6 +132,7 @@ keepdat() {
   rsync -av --delete ${DATLOC}/ ${DATLOCF}/
 }
 
+# Main
 c=0
 for v in ${DBNAME[@]}; do
 CHKARUYO=0
@@ -155,6 +165,52 @@ else
 fi
 done
 
+# CDD (no metadata)
+cddmirror() {
+  wget -o ${JSONLOC}/${v}.log -m -nd -w 10 -t 5 -P ${DATLOC} ${DBSRC}/${v}.tar.gz.md5
+  wget -m -nd -w 10 -t 5 -P ${DATLOC} ${DBSRC}/${v}.tar.gz
+  rm -f ${DATLOC}/.listing
+}
+
+for v in ${DBWOMETA[@]}; do
+NEWCDD=0
+echo $v
+if [ ! -e ${JSONLOC}/${v}.log ]; then
+  rm -f ${DATLOC}/${v}.*
+  cddmirror
+  NEWCDD=1
+else
+  cddmirror
+fi
+# Check md5 for cdd
+CNT=1
+cd ${DATLOC}
+while [ "${CNT}" -le "${MAXTRY}" ]; do
+  FCHK=$(md5sum -c ${v}.tar.gz.md5 | grep -o "OK")
+  if [ "$FCHK" = "OK" ]; then
+    echo "CDD is good."
+    CNT=$(($MAXTRY+2))
+  elif [ "${CNT}" -lt "${MAXTRY}" ]; then
+    rm -f ${DATLOC}/${v}.*
+    cddmirror
+  else
+    rm -f ${DATLOC}/${v}.*
+    cp -av ${DATLOCF}/${v}.* ${DATLOC}/
+  fi
+  CNT=$(($CNT+1))
+done
+# Newly saved or not?
+if [ $NEWCDD -eq 1 ]; then
+  NEWDAT+=($v)
+  c=3
+elif grep -P "cdd_delta\.tar\.gz\.md5' saved" ${JSONLOC}/${v}.log >/dev/null 2>&1; then
+  NEWDAT+=($v)
+  c=3
+else
+  echo ${v} is already latest.
+fi
+done
+# 
 echo "Updates are; ${NEWDAT[@]}"
 
 # Decompress the tar.gz from ftp only when a new file has been obtained.

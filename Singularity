@@ -4,9 +4,8 @@ Stage: build
 
 # path, BLASTMAT (blast matrices)
 %environment
-    export PATH=/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast-2.13.0+/bin:$PATH
+    export PATH=/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast-2.13.0+/bin:/opt/aspera/connect/bin:$PATH
     export BLASTMAT=/opt/blastmatrix
-    export LANG=en_US.UTF-8
 
 %files
     sendgmail_w3const.py /opt
@@ -48,6 +47,17 @@ Stage: build
     tar xvfz ncbi-blast-2.13.0+-x64-linux.tar.gz
     # blast matrix
     lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
+    # aspera connect
+    wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0b2t4/0/ibm-aspera-connect_4.2.4.265_linux.tar.gz
+    wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
+    tar xvfz /root/ibm-aspera-connect_4.2.4.265_linux.tar.gz -C /root
+    tar xvfz /root/ibm-aspera-connect_4.1.3.93_linux.tar.gz -C /root
+    bash /root/ibm-aspera-connect_4.1.3.93_linux.sh
+    mv /root/.aspera /root/aspera-413193
+    bash /root/ibm-aspera-connect_4.2.4.265_linux.sh
+    mv /root/.aspera /root/aspera
+    mv /root/aspera /opt
+    cp -av /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh.pub /opt/aspera/connect/etc
 
 %labels
     Author tkosuge

@@ -10,6 +10,7 @@ DIR="${BASE}/UniVec"
 FTP="${DIR}/ftp"
 #UniVec.fastaから作ったblastdbのディレクトリを指定
 BLASTDIR="${BASE}/blastdb_univec"
+export LANG=C
 
 if [ ! -e ${BASE} ] || [ ! -e ${DIR} ] || [ ! -e ${BLASTDIR} ]; then
 echo "You need to prepare ${BASE}, ${DIR}, and ${BLASTDIR} directories to run."
