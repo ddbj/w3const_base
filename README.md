@@ -1,27 +1,19 @@
 # w3const_base
 Common tools for w3const project
 
-## bin/
-Useful x64 binaries are placed here.
+# How to build the container
+cd ~
+git clone https://github.com/ddbj/w3const_base.git
+sudo singularity build constbase.sif ~/w3const_base/Singularity
 
-## Getblastdb_ncbi.sh
-Download and decompress blastdb from NCBI.
+The container includes the following scripts.
 
-Before using:
-To run the script, you must confirm that jq and pigz binaries exist on ~/w3const_base/bin on the local disk. If the files are not existed, you must update the ~/w3const_base as follows.
-~~~
-cd ~/w3const_base
-git pull
-~~~
+## getblastdb_ncbi.sh
+Download blast/db data from NCBI by using aspera connect and decompress to the blastdb directory.
 
 Usage:
-
-1. Copy the script to your work directory.
-1. Edit the variable 'BASE' in the script. The 'BASE' is your working directory.
-1. Run the script.
 ~~~
-cd ~/Working Directory
-./Getblastdb_ncbi.sh
+singularity exec /home/w3const/work-kosuge/constbase.sif getblastdb_ncbi.sh
 ~~~
 
 Variables:
@@ -36,14 +28,14 @@ Variables:
 * BDB ... A directory where decompressed data are placed.
 
 ## sendgmail_w3const.py
-Sends email from w3const@.
-
-Requirement: > python3.6
+Sends email by using the w3const@ google account.
 
 Usage:
-python3 sendgmail_w3const.py [-h] --sj subject --to email --body file [--cc email] [--bcc email] [--att file]
+~~~
+singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_w3const.py [-h] --sj subject --to email --body file [--cc email] [--bcc email] [--att file]
+~~~
 
-Prepare credential and white list files in advance.
+You must prepare credential and white list files in advance.
 1. Create a credential file to run the script.
 ~~~  
 mkdir -m 700 ~/.sendgmail_w3const
@@ -54,4 +46,12 @@ chmod 400 ~/.sendgmail_w3const/account
 ~~~
 touch ~/.sendgmail_w3const/whitelist; chmod 600 ~/.sendgmail_w3const/whitelist
 Write an email address to the whitelist in each line.
+~~~
+
+## makeUniVec_blastdb.sh
+Download the UniVec from NCBI and create the blast database.
+
+Usage:
+~~~
+singularity exec /home/w3const/work-kosuge/constbase.sif makeUniVec_blastdb.sh
 ~~~
