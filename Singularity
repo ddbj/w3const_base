@@ -58,6 +58,13 @@ Stage: build
     mv /root/.aspera /root/aspera
     mv /root/aspera /opt
     cp -av /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh.pub /opt/aspera/connect/etc
+    # # NCBI cxx tools
+    # wget -P /opt ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools%2B%2B/ARCHIVE/2021/Sep_30_2021/ncbi_cxx--25_2_0.tar.gz
+    # FNAME="ncbi_cxx--25_2_0.tar.gz"
+    # tar xvfz ${FNAME} && rm -f ${FNAME}
+    # cd ${FNAME%%.*}
+    # ./configure --with-flat-makefile --without-internal --without-gui
+    # cd GCC1130-DebugMT64/build && make -f Makefile.flat app/
 
 %labels
     Author tkosuge
