@@ -2,11 +2,13 @@
 Common tools for w3const project
 
 # How to build the container
+~~~
 cd ~
 git clone https://github.com/ddbj/w3const_base.git
 sudo singularity build constbase.sif ~/w3const_base/Singularity
+~~~
 
-The container includes the following scripts.
+* The container includes the following scripts.
 
 ## getblastdb_ncbi.sh
 Download blast/db data from NCBI by using aspera connect and decompress to the blastdb directory.
