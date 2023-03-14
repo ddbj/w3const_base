@@ -53,7 +53,11 @@ Write an email address to the whitelist in each line.
 ## makeUniVec_blastdb.sh
 Download the UniVec from NCBI and create the blast database.
 
-Usage:
+### Before use
+Edit the directory name of BASE (line 8). It is used for base directory. You need to create "UniVec" and "ftp" directories under the base directory.
+
+### Usage:
 ~~~
 singularity exec /home/w3const/work-kosuge/constbase.sif makeUniVec_blastdb.sh
 ~~~
+
