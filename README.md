@@ -51,7 +51,7 @@ Write an email address to the whitelist in each line.
 ~~~
 
 ## makeUniVec_blastdb.sh
-Download the UniVec from NCBI and create the blast database.
+Download the UniVec fasta from NCBI and replace the local file with newwer ones.
 
 ### Before use
 Edit the directory name of BASE (line 8). It is used for base directory. You need to create "UniVec" and "ftp" directories under the base directory.
