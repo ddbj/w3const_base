@@ -50,6 +50,7 @@ DATLOC="${BASE}/ftpbldb-work"
 DATLOCF="${BASE}/ftpbldb-keep"
 JSONLOC="${BASE}/ftpbldb-json"
 BDB="${BASE}/blastdbv5"
+DBJSHR="/home/ddbjshare/blast/db/v5"
 NEWDAT=()
 
 if [ ! -e ${BASE} ] ; then
@@ -130,6 +131,10 @@ decompress() {
 
 keepdat() {
   rsync -av --delete ${DATLOC}/ ${DATLOCF}/
+}
+
+syncdbjshare() {
+  rsync -av --delete ${BDB}/ ${DBJSHR}/
 }
 
 # Main
@@ -222,3 +227,6 @@ fi
 echo "-------------------------"
 echo "Started synchronization to keep the good data."
 keepdat
+
+# Sync to ddbjshare directory
+syncdbjshare
