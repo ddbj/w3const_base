@@ -229,4 +229,6 @@ echo "Started synchronization to keep the good data."
 keepdat
 
 # Sync to ddbjshare directory
+echo "-------------------------"
+echo "Started synchronization to ddbjshare."
 syncdbjshare
