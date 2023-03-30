@@ -48,13 +48,14 @@ Stage: build
     # blast matrix
     lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
     # aspera connect
-    wget -P /root https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.4.265_linux.tar.gz
+    VER="4.2.5.306"
+    wget -P /root https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_${VER}_linux.tar.gz
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
-    tar xvfz /root/ibm-aspera-connect_4.2.4.265_linux.tar.gz -C /root
+    tar xvfz /root/ibm-aspera-connect_${VER}_linux.tar.gz -C /root
     tar xvfz /root/ibm-aspera-connect_4.1.3.93_linux.tar.gz -C /root
     bash /root/ibm-aspera-connect_4.1.3.93_linux.sh
     mv /root/.aspera /root/aspera-413193
-    bash /root/ibm-aspera-connect_4.2.4.265_linux.sh
+    bash /root/ibm-aspera-connect_${VER}_linux.sh
     mv /root/.aspera /root/aspera
     mv /root/aspera /opt
     cp -av /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh.pub /opt/aspera/connect/etc
