@@ -39,11 +39,12 @@ def accountinfo():
 def parseoption():
     parser = argparse.ArgumentParser()
     parser.add_argument('--sj', required=True, metavar='subject', help="e.g. 'Email title'")
-    parser.add_argument('--to', required=True, metavar='email', help='To address e.g. email; elail1,email2,...')
+    parser.add_argument('--sender', metavar='address', help='Optional: From address. You can specify alias address here if available.')
+    parser.add_argument('--to', required=True, metavar='address', help='To address e.g. address; address1,address2,...')
     parser.add_argument('--body', required=True, metavar='file', help='A file of email body')
-    parser.add_argument('--cc', metavar='email', help='Cc address e.g. email; elail1,email2,...')
-    parser.add_argument('--bcc', metavar='email', help='Bcc address e.g. email; email1,email2,...')
-    parser.add_argument('--att', metavar='file', help='Attachment file (text-type only) e.g. file; file1,file2,... ')
+    parser.add_argument('--cc', metavar='address', help='Optional: Cc address e.g. address; address1,address2,...')
+    parser.add_argument('--bcc', metavar='address', help='Optional: Bcc address e.g. address; address1,address2,...')
+    parser.add_argument('--att', metavar='file', help='Optional: Attachment file (text-type only) e.g. file; file1,file2,... ')
     args = parser.parse_args()
     return args
 
@@ -69,10 +70,10 @@ def chkwhite(e):
         print('Write an email address in each line.')
         sys.exit()
 
-def sendemail(account, pwd, subject, to, body, cc, bcc, attach):
+def sendemail(account, pwd, subject, sendfrom, to, body, cc, bcc, attach):
     msg = EmailMessage()
     msg['Subject'] = subject
-    msg['From'] = account
+    msg['From'] = sendfrom
     msg['To'] = to
     if cc:
         msg["Cc"] = cc
@@ -110,14 +111,18 @@ def main():
         emails += opt.cc.split(',')
     if opt.bcc:
         emails += opt.bcc.split(',')
+    if opt.sender:
+        fromaddr = opt.sender
+    else:
+        fromaddr = accnt[0]
     # print(emails)
     chk = chkwhite(emails)
     if chk == 0:
         with open(opt.body, 'r', encoding = 'utf-8') as fbody:
             if opt.att:
-                sendemail(accnt[0], accnt[1], opt.sj, opt.to, fbody.read(), opt.cc, opt.bcc, opt.att)
+                sendemail(accnt[0], accnt[1], opt.sj, fromaddr, opt.to, fbody.read(), opt.cc, opt.bcc, opt.att)
             else:
-                sendemail(accnt[0], accnt[1], opt.sj, opt.to, fbody.read(), opt.cc, opt.bcc, '')
+                sendemail(accnt[0], accnt[1], opt.sj, fromaddr, opt.to, fbody.read(), opt.cc, opt.bcc, '')
 
 if __name__ == '__main__':
     main()
