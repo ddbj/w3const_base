@@ -30,7 +30,7 @@ Variables:
 * BDB ... A directory where decompressed data are placed.
 
 ## sendgmail_w3const.py
-Sends email by using the w3const@ google account.
+Sends email by using the google account. You can specify a sender address if you have set the other email address(es) (e.g. sender alias) on the account.
 
 Usage:
 ~~~
