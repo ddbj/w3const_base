@@ -34,7 +34,7 @@ Sends email by using the w3const@ google account.
 
 Usage:
 ~~~
-singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_w3const.py [-h] --sj subject --to email --body file [--cc email] [--bcc email] [--att file]
+singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_w3const.py [-h] --sj subject --to email --body file [--cc email] [--bcc email] [--att file] [--sender address]
 ~~~
 
 You must prepare credential and white list files in advance.
