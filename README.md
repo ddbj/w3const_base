@@ -42,7 +42,7 @@ You must prepare credential and white list files in advance.
 ~~~  
 mkdir -m 700 ~/.sendgmail_w3const
 echo 'GmailAccount:ApplicationPassword' > ~/.sendgmail_w3const/account
-chmod 400 ~/.sendgmail_w3const/account
+chmod 600 ~/.sendgmail_w3const/account
 ~~~
 2. Create a whitelist
 ~~~
