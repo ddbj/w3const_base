@@ -8,6 +8,10 @@ export LANG=C
 # Blast database having its own meta file.
 DBNAME=("nr-prot" \
 "nt-nucl" \
+"nt_euk-nucl" \
+"nt_prok-nucl" \
+"nt_viruses-nucl" \
+"nt_others-nucl" \
 "16S_ribosomal_RNA-nucl" \
 "18S_fungal_sequences-nucl" \
 "28S_fungal_sequences-nucl" \
