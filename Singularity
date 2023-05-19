@@ -31,8 +31,8 @@ Stage: build
     mv /opt/*.sh /opt/*.py /opt/w3constbin
     chmod +x /opt/w3constbin/*.sh /opt/w3constbin/*.py
     # Parser, transchecker
-    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/Parser_V6.69.tar.gz -O /opt/jparser.tar.gz
-    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/transChecker_V2.22.tar.gz -O /opt/transChecker.tar.gz
+    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/Parser_V6.70.tar.gz -O /opt/jparser.tar.gz
+    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/transChecker_V2.23.tar.gz -O /opt/transChecker.tar.gz
     cd /opt
     for v in /opt/*.tar.gz; do
     tar xvfz $v
