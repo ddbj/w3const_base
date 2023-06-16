@@ -31,8 +31,8 @@ Stage: build
     mv /opt/*.sh /opt/*.py /opt/w3constbin
     chmod +x /opt/w3constbin/*.sh /opt/w3constbin/*.py
     # Parser, transchecker
-    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/Parser_V6.70.tar.gz -O /opt/jparser.tar.gz
-    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/transChecker_V2.23.tar.gz -O /opt/transChecker.tar.gz
+    wget ftp://ftp.ddbj.nig.ac.jp/ddbj-cib/MSS/Parser_V*.gz -O /opt/jparser.tar.gz
+    wget ftp://ftp.ddbj.nig.ac.jp/ddbj-cib/MSS/transChecker_V*.gz -O /opt/transChecker.tar.gz
     cd /opt
     for v in /opt/*.tar.gz; do
     tar xvfz $v
@@ -48,7 +48,7 @@ Stage: build
     # blast matrix
     lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
     # aspera connect
-    VER="4.2.5.306"
+    VER="4.2.6.393"
     wget -P /root https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_${VER}_linux.tar.gz
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
     tar xvfz /root/ibm-aspera-connect_${VER}_linux.tar.gz -C /root
