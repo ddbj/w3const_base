@@ -49,7 +49,7 @@ Stage: build
     lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
     # aspera connect
     VER="4.2.6.393"
-    wget -P /root https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_${VER}_linux.tar.gz
+    wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0bfo7/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
     tar xvfz /root/ibm-aspera-connect_${VER}_linux.tar.gz -C /root
     tar xvfz /root/ibm-aspera-connect_4.1.3.93_linux.tar.gz -C /root
