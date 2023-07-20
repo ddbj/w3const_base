@@ -51,11 +51,11 @@ Stage: build
     VER="4.2.6.393"
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0bfo7/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
-    tar xvfz /root/ibm-aspera-connect_${VER}_linux.tar.gz -C /root
+    tar xvfz /root/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz -C /root
     tar xvfz /root/ibm-aspera-connect_4.1.3.93_linux.tar.gz -C /root
     bash /root/ibm-aspera-connect_4.1.3.93_linux.sh
     mv /root/.aspera /root/aspera-413193
-    bash /root/ibm-aspera-connect_${VER}_linux.sh
+    bash /root/ibm-aspera-connect_${VER}_linux_x86_64.sh
     mv /root/.aspera /root/aspera
     mv /root/aspera /opt
     cp -av /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh /root/aspera-413193/connect/etc/asperaweb_id_dsa.openssh.pub /opt/aspera/connect/etc
