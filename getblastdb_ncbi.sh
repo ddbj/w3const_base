@@ -101,20 +101,20 @@ getjsondb() {
       if [ "$FCHK" = "OK" ]; then
         echo "$FNAME is good"
         CNT=$(($MAXTRY+1))
-      elif [ "$CNT" -eq "$MAXTRY" ]; then
-        echo "$FNAME is broken. Stop the downloading of ${v} and use the former data set."
-        rm -f ${DATLOC}/${FNAME%%.*}.*
-        cp -av ${DATLOCF}/${FNAME%%.*}.* ${DATLOC}/
-        CNT=$(($MAXTRY+2))
       else
         echo "#$CNT times tried, $FNAME is wrong."
         CNT=$(($CNT+1))
+        FCHK="BAD"
         rm -f ${DATLOC}/${FNAME}
         rm -f ${DATLOC}/${FNAME}.md5
       fi
     done
     # read -p "Continue?"
-    if [ "$CNT" -eq "$(($MAXTRY+2))" ]; then
+    if [ "$FCHK" = "BAD" ]; then
+      echo "$FNAME is broken. Stop the downloading of ${v} and use the former data set."
+      rm -f ${DATLOC}/${FNAME%%.*}.*
+      cp -av ${DATLOCF}/${FNAME%%.*}.* ${DATLOC}/
+      # break for
       break
     fi
     done
