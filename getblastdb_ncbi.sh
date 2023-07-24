@@ -91,6 +91,7 @@ getjsondb() {
     cd $DATLOC
     CNT=1
     while [ "$CNT" -le "$MAXTRY" ]; do
+      FCHK=""
       curl -s -O --retry 2 $FURL.md5
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
       ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
