@@ -93,7 +93,7 @@ getjsondb() {
     while [ "$CNT" -le "$MAXTRY" ]; do
       curl -s -O --retry 2 $FURL.md5
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
-      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
+      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
       # wget -q -T 60 -t 2 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL.md5
@@ -108,9 +108,10 @@ getjsondb() {
         rm -f ${DATLOC}/${FNAME}
         rm -f ${DATLOC}/${FNAME}.md5
       fi
+      sleep 1
     done
     # read -p "Continue?"
-    if [ "$FCHK" = "BAD" ]; then
+    if [ "$FCHK" != "OK" ]; then
       echo "$FNAME is broken. Stop the downloading of ${v} and use the former data set."
       rm -f ${DATLOC}/${FNAME%%.*}.*
       cp -av ${DATLOCF}/${FNAME%%.*}.* ${DATLOC}/
