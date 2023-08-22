@@ -94,7 +94,7 @@ getjsondb() {
       FCHK=""
       curl -s -O --retry 2 $FURL.md5
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
-      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
+      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./ || FCHK="BAD"
       # wget -q -T 60 -t 2 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL.md5
