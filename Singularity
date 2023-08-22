@@ -23,7 +23,7 @@ Stage: build
     echo Asia/Tokyo > /etc/timezone
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install build-essential
-    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git
+    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion
     apt -y install wget curl jq pigz lftp rsync
     apt -y install openjdk-17-jre
     # Put base scripts
