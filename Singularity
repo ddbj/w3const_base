@@ -40,7 +40,7 @@ Stage: build
     rm -f jparser.tar.gz transChecker.tar.gz
     sed -i -e 's%PARSER_DIR=./%PARSER_DIR=/opt/jParser%' ./jParser/jParser.sh
     sed -i -e 's%TRANS_DIR=./%TRANS_DIR=/opt/transChecker%' ./transChecker/transChecker.sh
-    sed -i -e 's%HEAP_SIZE=128m%HEAP_SIZE=128000m%' ./jParser/jParser.sh ./transChecker/transChecker.sh
+    sed -i -e 's%DEFAULT_MAX_HEAP=[0-9]\+[MmGg]%DEFAULT_MAX_HEAP=128000m%' ./jParser/jParser.sh ./transChecker/transChecker.sh
     chmod +x ./jParser/jParser.sh ./transChecker/transChecker.sh
     chmod 644 ./jParser/jar/*.jar ./transChecker/jar/*.jar
     # blast bin
