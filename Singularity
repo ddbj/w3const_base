@@ -42,6 +42,7 @@ Stage: build
     sed -i -e 's%TRANS_DIR=./%TRANS_DIR=/opt/transChecker%' ./transChecker/transChecker.sh
     sed -i -e 's%HEAP_SIZE=128m%HEAP_SIZE=128000m%' ./jParser/jParser.sh ./transChecker/transChecker.sh
     chmod +x ./jParser/jParser.sh ./transChecker/transChecker.sh
+    chmod 644 ./jParser/jar/*.jar ./transChecker/jar/*.jar
     # blast bin
     wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.13.0/ncbi-blast-2.13.0+-x64-linux.tar.gz
     tar xvfz ncbi-blast-2.13.0+-x64-linux.tar.gz
