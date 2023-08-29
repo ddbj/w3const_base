@@ -8,7 +8,7 @@ git clone https://github.com/ddbj/w3const_base.git
 sudo singularity build constbase.sif ~/w3const_base/Singularity
 ~~~
 
-**The container contains the following scripts.**
+**The container contains the following scripts and binaries.**
 
 ## getblastdb_ncbi.sh
 Download blast/db data from NCBI by using aspera connect and decompress to the blastdb directory.
@@ -52,6 +52,19 @@ Write an email address to the whitelist in each line.
 
 ## makeUniVec_blastdb.sh
 Download the UniVec fasta from NCBI and replace the local file with newwer ones. The script also prepares blast databases whose names are UniVec and UniVec_Core.
+
+## jParser & transChecker
+https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/
+
+## blast & matrics
+ftp://ftp.ncbi.nih.gov/blast/executables/blast+/
+ftp://ftp.ncbi.nih.gov/blast/matrices
+
+## sratoolkit
+https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.0.7/
+
+## aspera
+https://www.ibm.com/aspera/connect/
 
 ### Before use
 Edit the directory name of BASE (line 8). It is used for base directory. You need to create "UniVec" directory under the base directory. The blast databases for UniVec and UniVec_Core are created to the directory designated by BLASTDIR (line 12).
