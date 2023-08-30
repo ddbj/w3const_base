@@ -4,7 +4,7 @@ Stage: build
 
 # path, BLASTMAT (blast matrices)
 %environment
-    export PATH=/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast-2.13.0+/bin:/opt/aspera/connect/bin:$PATH
+    export PATH=/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast/bin:/opt/sratoolkit/bin:/opt/aspera/connect/bin:$PATH
     export BLASTMAT=/opt/blastmatrix
 
 %files
@@ -46,8 +46,14 @@ Stage: build
     # blast bin
     wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.13.0/ncbi-blast-2.13.0+-x64-linux.tar.gz
     tar xvfz ncbi-blast-2.13.0+-x64-linux.tar.gz
+    ln -s ncbi-blast-2.13.0+ ncbi-blast
     # blast matrix
     lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
+    # sra toolkit
+    VER=$(curl -s https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current.version)
+    wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${VER}/sratoolkit.${VER}-ubuntu64.tar.gz
+    tar xvfz sratoolkit.${VER}-ubuntu64.tar.gz
+    ln -s sratoolkit.${VER}-ubuntu64 sratoolkit
     # aspera connect
     VER="4.2.6.393"
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0bfo7/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
