@@ -56,7 +56,7 @@ Download the UniVec fasta from NCBI and replace the local file with newwer ones.
 ## jParser & transChecker
 https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/
 
-## blast & matrics
+## blast & matrix
 ftp://ftp.ncbi.nih.gov/blast/executables/blast+/
 ftp://ftp.ncbi.nih.gov/blast/matrices
 
