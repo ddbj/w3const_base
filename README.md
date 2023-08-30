@@ -61,7 +61,7 @@ ftp://ftp.ncbi.nih.gov/blast/executables/blast+/
 ftp://ftp.ncbi.nih.gov/blast/matrices
 
 ## SRA Toolkit
-https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.0.7/
+Latest version of https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/
 
 ## Aspera Connect
 https://www.ibm.com/aspera/connect/
