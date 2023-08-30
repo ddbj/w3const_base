@@ -60,7 +60,7 @@ https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/
 ftp://ftp.ncbi.nih.gov/blast/executables/blast+/
 ftp://ftp.ncbi.nih.gov/blast/matrices
 
-## sratoolkit
+## SRA Toolkit
 https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.0.7/
 
 ## aspera
