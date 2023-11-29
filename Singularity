@@ -44,9 +44,9 @@ Stage: build
     chmod +x ./jParser/jParser.sh ./transChecker/transChecker.sh
     chmod 644 ./jParser/jar/*.jar ./transChecker/jar/*.jar
     # blast bin
-    wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.13.0/ncbi-blast-2.13.0+-x64-linux.tar.gz
-    tar xvfz ncbi-blast-2.13.0+-x64-linux.tar.gz
-    ln -s ncbi-blast-2.13.0+ ncbi-blast
+    wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.15.0/ncbi-blast-2.15.0+-x64-linux.tar.gz
+    tar xvfz ncbi-blast-2.15.0+-x64-linux.tar.gz
+    ln -s ncbi-blast-2.15.0+ ncbi-blast
     # blast matrix
     lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
     # sra toolkit
