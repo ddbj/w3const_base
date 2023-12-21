@@ -11,6 +11,7 @@ Stage: build
     sendgmail_w3const.py /opt
     getblastdb_ncbi.sh /opt
     makeUniVec_blastdb.sh /opt
+    ncbi-blast-matrices.tar.gz /opt
 
 %runscript
 
@@ -23,9 +24,7 @@ Stage: build
     echo Asia/Tokyo > /etc/timezone
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install build-essential
-    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion
-    apt -y install wget curl jq pigz lftp rsync
-    apt -y install openjdk-17-jre
+    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre
     # Put base scripts
     mkdir /opt/w3constbin
     mv /opt/*.sh /opt/*.py /opt/w3constbin
@@ -47,13 +46,17 @@ Stage: build
     wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.15.0/ncbi-blast-2.15.0+-x64-linux.tar.gz
     tar xvfz ncbi-blast-2.15.0+-x64-linux.tar.gz
     ln -s ncbi-blast-2.15.0+ ncbi-blast
-    # blast matrix
-    lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
+    # blast matrix; changed the method, former=from ncbiftp, current=from dowloaded archive
+    # lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
+    tar xvfz ncbi-blast-matrices.tar.gz
+    mv ncbi-blast-matrices blastmatrix
+    rm ncbi-blast-2.15.0+-x64-linux.tar.gz ncbi-blast-matrices.tar.gz
     # sra toolkit
     VER=$(curl -s https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current.version)
     wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${VER}/sratoolkit.${VER}-ubuntu64.tar.gz
     tar xvfz sratoolkit.${VER}-ubuntu64.tar.gz
     ln -s sratoolkit.${VER}-ubuntu64 sratoolkit
+    rm sratoolkit.${VER}-ubuntu64.tar.gz
     # aspera connect
     VER="4.2.6.393"
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0bfo7/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
