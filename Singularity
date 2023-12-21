@@ -43,14 +43,15 @@ Stage: build
     chmod +x ./jParser/jParser.sh ./transChecker/transChecker.sh
     chmod 644 ./jParser/jar/*.jar ./transChecker/jar/*.jar
     # blast bin
-    wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.15.0/ncbi-blast-2.15.0+-x64-linux.tar.gz
-    tar xvfz ncbi-blast-2.15.0+-x64-linux.tar.gz
-    ln -s ncbi-blast-2.15.0+ ncbi-blast
+    VER=$(curl -s https://ftp.ncbi.nih.gov/blast/executables/blast+/VERSION)
+    wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/${VER}/ncbi-blast-${VER}+-x64-linux.tar.gz
+    tar xvfz ncbi-blast-${VER}+-x64-linux.tar.gz
+    ln -s ncbi-blast-${VER}+ ncbi-blast
     # blast matrix; changed the method, former=from ncbiftp, current=from dowloaded archive
     # lftp -c "open -u anonymous,tkosuge@nig.ac.jp ftp.ncbi.nih.gov && mirror -v /blast/matrices /opt/blastmatrix && close && quit"
     tar xvfz ncbi-blast-matrices.tar.gz
     mv ncbi-blast-matrices blastmatrix
-    rm ncbi-blast-2.15.0+-x64-linux.tar.gz ncbi-blast-matrices.tar.gz
+    rm ncbi-blast-${VER}+-x64-linux.tar.gz ncbi-blast-matrices.tar.gz
     # sra toolkit
     VER=$(curl -s https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current.version)
     wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${VER}/sratoolkit.${VER}-ubuntu64.tar.gz
