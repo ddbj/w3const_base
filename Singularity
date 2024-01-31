@@ -4,14 +4,19 @@ Stage: build
 
 # path, BLASTMAT (blast matrices)
 %environment
-    export PATH=/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast/bin:/opt/sratoolkit/bin:/opt/aspera/connect/bin:$PATH
+    export PATH=/home/w3const/systool/ncbitool:/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast/bin:/opt/ncbitool:/opt/sratoolkit/bin:/opt/aspera/connect/bin:$PATH
     export BLASTMAT=/opt/blastmatrix
+
+%setup
+    echo "Wait for 15 sec to start building the container, or put the ncbitool.tar.gz file including the binary tools (e.g. vecscreen) in ./ncbitool directory by yourself if you want to include them in the container." > /dev/nul
+    sleep 15
 
 %files
     sendgmail_w3const.py /opt
     getblastdb_ncbi.sh /opt
     makeUniVec_blastdb.sh /opt
     ncbi-blast-matrices.tar.gz /opt
+    ncbitool/ncbitool.tar.gz /opt
 
 %runscript
 
@@ -24,11 +29,13 @@ Stage: build
     echo Asia/Tokyo > /etc/timezone
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install build-essential
-    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre
+    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data
     # Put base scripts
-    mkdir /opt/w3constbin
+    mkdir /opt/w3constbin /opt/ncbitool
     mv /opt/*.sh /opt/*.py /opt/w3constbin
     chmod +x /opt/w3constbin/*.sh /opt/w3constbin/*.py
+    tar xvfz /opt/ncbitool.tar.gz -C /opt/ncbitool/ && rm -f /opt/ncbitool.tar.gz
+    chmod +x /opt/ncbitool/*
     # Parser, transchecker
     wget ftp://ftp.ddbj.nig.ac.jp/ddbj-cib/MSS/Parser_V*.gz -O /opt/jparser.tar.gz
     wget ftp://ftp.ddbj.nig.ac.jp/ddbj-cib/MSS/transChecker_V*.gz -O /opt/transChecker.tar.gz
