@@ -1,1 +1,1 @@
-Put the binaries with large file size in the directory.
+Put the binaries with large file size in the local directory.
