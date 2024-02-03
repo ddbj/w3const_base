@@ -13,6 +13,7 @@ Stage: build
 
 %files
     sendgmail_w3const.py /opt
+    vecscrnfilter.py /opt
     getblastdb_ncbi.sh /opt
     makeUniVec_blastdb.sh /opt
     ncbi-blast-matrices.tar.gz /opt
@@ -34,7 +35,7 @@ Stage: build
     mkdir /opt/w3constbin /opt/ncbitool
     mv /opt/*.sh /opt/*.py /opt/w3constbin
     chmod +x /opt/w3constbin/*.sh /opt/w3constbin/*.py
-    tar xvfz /opt/ncbitool.tar.gz -C /opt/ncbitool/ && rm -f /opt/ncbitool.tar.gz
+    tar xvfz /opt/ncbitool.tar.gz -C /opt/ncbitool/
     chmod +x /opt/ncbitool/*
     # Parser, transchecker
     wget ftp://ftp.ddbj.nig.ac.jp/ddbj-cib/MSS/Parser_V*.gz -O /opt/jparser.tar.gz
