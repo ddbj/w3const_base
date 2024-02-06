@@ -8,7 +8,7 @@ Stage: build
     export BLASTMAT=/opt/blastmatrix
 
 %setup
-    echo "Wait for 15 sec to start building the container, or put the ncbitool.tar.gz file including the binary tools (e.g. vecscreen) in ./ncbitool directory by yourself if you want to include them in the container." > /dev/nul
+    echo "Wait for 15 sec to start building the container, or put the ncbi binary tools (e.g. vecscreen) in ./ncbitool directory by yourself if you want to include them in the container." > /dev/null
     sleep 15
     mkdir -p ${SINGULARITY_ROOTFS}/opt/w3constbin
     mkdir -p ${SINGULARITY_ROOTFS}/opt/ncbitool
@@ -34,9 +34,9 @@ Stage: build
     echo Asia/Tokyo > /etc/timezone
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install build-essential
-    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data
+    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data python3-pip
     # Put base scripts, binaries
-    chmod +x /opt/w3constbin/*.sh /opt/w3constbin/*.py /opt/ncbitool/*
+    chmod a+x /opt/w3constbin/*.sh /opt/w3constbin/*.py /opt/ncbitool/*
     #Python module
     pip install biopython
     # Parser, transchecker
