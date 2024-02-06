@@ -10,14 +10,18 @@ Stage: build
 %setup
     echo "Wait for 15 sec to start building the container, or put the ncbitool.tar.gz file including the binary tools (e.g. vecscreen) in ./ncbitool directory by yourself if you want to include them in the container." > /dev/nul
     sleep 15
+    mkdir -p ${SINGULARITY_ROOTFS}/opt/w3constbin
+    mkdir -p ${SINGULARITY_ROOTFS}/opt/ncbitool
 
 %files
-    sendgmail_w3const.py /opt
-    vecscrnfilter.py /opt
-    getblastdb_ncbi.sh /opt
-    makeUniVec_blastdb.sh /opt
+    curatortool/sendgmail_w3const.py /opt/w3constbin
+    curatortool/vecscrnfilter.py /opt/w3constbin
+    curatortool/getblastdb_ncbi.sh /opt/w3constbin
+    curatortool/makeUniVec_blastdb.sh /opt/w3constbin
+    curatortool/convTSV2Json.py /opt/w3constbin
+    curatortool/convFF2Fasta.py /opt/w3constbin
     ncbi-blast-matrices.tar.gz /opt
-    ncbitool/ncbitool.tar.gz /opt
+    ncbitool/* /opt/ncbitool
 
 %runscript
 
@@ -31,12 +35,10 @@ Stage: build
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data
-    # Put base scripts
-    mkdir /opt/w3constbin /opt/ncbitool
-    mv /opt/*.sh /opt/*.py /opt/w3constbin
-    chmod +x /opt/w3constbin/*.sh /opt/w3constbin/*.py
-    tar xvfz /opt/ncbitool.tar.gz -C /opt/ncbitool/
-    chmod +x /opt/ncbitool/*
+    # Put base scripts, binaries
+    chmod +x /opt/w3constbin/*.sh /opt/w3constbin/*.py /opt/ncbitool/*
+    #Python module
+    pip install biopython
     # Parser, transchecker
     wget ftp://ftp.ddbj.nig.ac.jp/ddbj-cib/MSS/Parser_V*.gz -O /opt/jparser.tar.gz
     wget ftp://ftp.ddbj.nig.ac.jp/ddbj-cib/MSS/transChecker_V*.gz -O /opt/transChecker.tar.gz
