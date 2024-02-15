@@ -53,7 +53,7 @@ Write an email address to the whitelist in each line.
 3. Example
 ~~~
 cd /home/w3const
-singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_w3const.py --sj "てすとです" --to addr1,add2 --body /home/w3const/work-kosuge/emailbody.txt/emailbody.txt
+singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_w3const.py --sj "てすとです" --to addr1,add2 --body /home/w3const/work-kosuge/emailbody.txt
 ~~~
 
 ## makeUniVec_blastdb.sh
