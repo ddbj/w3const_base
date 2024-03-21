@@ -67,6 +67,14 @@ Edit the directory name of BASE (line 8). It is used for base directory. You nee
 singularity exec /home/w3const/work-kosuge/constbase.sif makeUniVec_blastdb.sh
 ~~~
 
+## splitff.sh
+Separate a huge flatfile into small-sized flat files.
+
+### Usage
+~~~
+splitff.sh -f <flatfile> -s <number of lines>
+~~~
+
 ## jParser & transChecker
 https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/
 
