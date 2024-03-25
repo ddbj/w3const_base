@@ -80,7 +80,7 @@ Obtain organism, taxid, taxnomyc division for a target entry from the flatfile. 
 
 ### Usage
 ~~~
-getorganisminfoFF.py  -i <flatfile> -a accession num
+getorganisminfoFF.py  -i <flatfile> -a <accession num>
 ~~~
 
 ## jParser & transChecker
