@@ -14,12 +14,7 @@ Stage: build
     mkdir -p ${SINGULARITY_ROOTFS}/opt/ncbitool
 
 %files
-    curatortool/sendgmail_w3const.py /opt/w3constbin
-    curatortool/vecscrnfilter.py /opt/w3constbin
-    curatortool/getblastdb_ncbi.sh /opt/w3constbin
-    curatortool/makeUniVec_blastdb.sh /opt/w3constbin
-    curatortool/convTSV2Json.py /opt/w3constbin
-    curatortool/convFF2Fasta.py /opt/w3constbin
+    curatortool/* /opt/w3constbin
     ncbi-blast-matrices.tar.gz /opt
     ncbitool/* /opt/ncbitool
 
@@ -31,7 +26,8 @@ Stage: build
     apt update
     apt -y upgrade
     apt -y install tzdata
-    echo Asia/Tokyo > /etc/timezone
+    ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+    DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data python3-pip
