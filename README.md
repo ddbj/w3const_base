@@ -75,12 +75,15 @@ Separate a huge flatfile into small-sized flat files.
 splitff.sh -f <flatfile> -s <number of lines>
 ~~~
 
-## getorganisminfoFF.py
-Obtain organism, taxid, taxnomyc division for a target entry from the flatfile. In the case of ENV or taxid=0, taxonomic division is obtained from Entrez search by using the beginning /organism as a query.
+## getorganismdivFF.py
+Obtain or search taxnomyc division for a target entry from the flatfile, Entrez, or local taxonomy dump file. In the case of ENV or taxid=0, taxonomic division is obtained from Entrez search or tax dump file by using the beginning of the /organism as a query. 
 
 ### Usage
 ~~~
-getorganisminfoFF.py  -i <flatfile> -a <accession num>
+e.g.1
+getorganismdivFF.py  -i <flatfile> -a <accession num>
+e.g.2
+getorganismdivFF.py  -i <flatfile> -a <accession num> -p <tax dump directory>
 ~~~
 
 ## jParser & transChecker
