@@ -62,7 +62,7 @@ Download the UniVec fasta from NCBI and replace the local file with newwer ones.
 ### Before use
 Edit the directory name of BASE (line 8). It is used for base directory. You need to create "UniVec" directory under the base directory. The blast databases for UniVec and UniVec_Core are created to the directory designated by BLASTDIR (line 12).
 
-### Usage:
+Usage:
 ~~~
 singularity exec /home/w3const/work-kosuge/constbase.sif makeUniVec_blastdb.sh
 ~~~
@@ -70,7 +70,7 @@ singularity exec /home/w3const/work-kosuge/constbase.sif makeUniVec_blastdb.sh
 ## splitff.sh
 Separate a huge flatfile into small-sized flat files.
 
-### Usage
+Usage
 ~~~
 splitff.sh -f <flatfile> -s <number of lines>
 ~~~
@@ -78,7 +78,7 @@ splitff.sh -f <flatfile> -s <number of lines>
 ## getorganismdivFF.py
 Obtain or search taxnomyc division for a target entry from the flatfile, Entrez, or local taxonomy dump file. In the case of ENV or taxid=0, taxonomic division is obtained from Entrez search or tax dump file by using the beginning of the /organism as a query. 
 
-### Usage
+Usage
 ~~~
 e.g.1
 getorganismdivFF.py  -i <flatfile> -a <accession num>
@@ -92,6 +92,19 @@ https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/
 ## blast & matrix
 ftp://ftp.ncbi.nih.gov/blast/executables/blast+/
 ftp://ftp.ncbi.nih.gov/blast/matrices
+
+## vecscrnfilter.py
+
+Reads vecscreen result that carried out with options -outfmt 0 -text_output, and filter the results with the degree of brast matches.
+
+Usage
+~~~
+vecscrnfilter.py [-s|-m|-w] [alignment file]
+#  '-s' outputs only 'Strong match'
+#  '-m' outputs 'Moderate match' & 'Strong Match'
+#  '-w' outputs 'Weak match' besides 'Moderate match' & 'Strong match'
+#  They may contain 'Suspect origin' if included in the result
+~~~
 
 ## SRA Toolkit
 Latest version of https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/
