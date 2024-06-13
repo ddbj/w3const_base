@@ -95,7 +95,7 @@ ftp://ftp.ncbi.nih.gov/blast/matrices
 
 ## vecscrnfilter.py
 
-Reads vecscreen result that carried out with options -outfmt 0 -text_output, and filter the results with the degree of brast matches.
+Reads vecscreen result that carried out with options -outfmt 0 -text_output, and filter the results with the degree of blast matches.
 
 Usage
 ~~~
