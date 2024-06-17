@@ -49,6 +49,7 @@ DBWOMETA=("cdd_delta")
 
 MAXTRY=5
 BASE="${HOME}/work-kosuge"
+LOGDIR="${BASE}/log"
 DBSRC="ftp://ftp.ncbi.nih.gov/blast/db"
 DATLOC="${BASE}/ftpbldb-work"
 DATLOCF="${BASE}/ftpbldb-keep"
@@ -100,7 +101,7 @@ getjsondb() {
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL.md5
       FCHK=$(md5sum -c $FNAME.md5 | grep -o "OK")
       if [ "$FCHK" = "OK" ]; then
-        echo "$FNAME is good"
+        echo "$(date +%Y%m%d-%H%M): $FNAME is good"
         CNT=$(($MAXTRY+1))
       else
         echo "#$CNT times tried, $FNAME is wrong."
@@ -232,21 +233,23 @@ else
 fi
 done
 # 
-echo "Updates are; ${NEWDAT[@]}"
+echo "$(date +%Y%m%d-%H%M): Downloading has been finished."
+echo "$(date +%Y%m%d-%H%M): Updates are; ${NEWDAT[@]}"
 
 # Decompress the tar.gz from ftp only when a new file has been obtained.
 if [[ "$c" -gt 0 ]]; then
   decompress
 fi
+echo "$(date +%Y%m%d-%H%M): Decompression has been finished."
 
 # Keep the good data
 echo "-------------------------"
-echo "Started synchronization to keep the good data."
+echo "$(date +%Y%m%d-%H%M): Started synchronization to keep the good data."
 keepdat
 
 # Sync to ddbjshare directory
 echo "-------------------------"
-echo "Started synchronization to ddbjshare."
+echo "$(date +%Y%m%d-%H%M): Started synchronization to ddbjshare."
 syncdbjshare
 
 # Delete the temporal file
