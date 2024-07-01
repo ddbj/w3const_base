@@ -184,6 +184,7 @@ else
   # Get data, decompress
   echo "${v}, is downloading for the first time."
   c=1
+  curl -s -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
   getjsondb
 fi
 done
