@@ -95,7 +95,7 @@ getjsondb() {
     while [ "$CNT" -le "$MAXTRY" ]; do
       FCHK=""
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
-      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
+      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l500m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
       # wget -q -T 60 -t 2 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL.md5
@@ -177,6 +177,7 @@ if [ -e ${JSONLOC}/${v}-metadata.json ];then
     if [ ${CHKARUYO} -eq 1 ]; then
       echo "${v} is exceptinal db. The date in the metadata is ${LATEST}, but needs update."
       getjsondb
+      c=4
     fi
   fi
 else
@@ -237,7 +238,7 @@ echo "$(date +%Y%m%d-%H%M): Downloading has been finished."
 echo "$(date +%Y%m%d-%H%M): Updates are; ${NEWDAT[@]}"
 
 # Decompress the tar.gz from ftp only when a new file has been obtained.
-if [[ "$c" -gt 0 ]]; then
+if [[ $c -gt 0 ]]; then
   decompress
 fi
 echo "$(date +%Y%m%d-%H%M): Decompression has been finished."
