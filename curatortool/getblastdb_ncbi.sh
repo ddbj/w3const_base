@@ -148,7 +148,7 @@ syncdbjshare() {
 c=0
 for v in ${DBNAME[@]}; do
 CHKARUYO=0
-if [ -e ${JSONLOC}/${v}-metadata.json ];then
+if [ -e "${JSONLOC}/${v}-metadata.json" ];then
   # echo "Aruyo!"
   FORMER=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."last-updated"')
   curl -s -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
