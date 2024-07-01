@@ -182,7 +182,7 @@ if [ -e "${JSONLOC}/${v}-metadata.json" ];then
   fi
 else
   # Get data, decompress
-  echo "${v}, is downloading for the fist time."
+  echo "${v}, is downloading for the first time."
   c=1
   getjsondb
 fi
