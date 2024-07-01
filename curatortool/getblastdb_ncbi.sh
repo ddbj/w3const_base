@@ -238,7 +238,7 @@ echo "$(date +%Y%m%d-%H%M): Downloading has been finished."
 echo "$(date +%Y%m%d-%H%M): Updates are; ${NEWDAT[@]}"
 
 # Decompress the tar.gz from ftp only when a new file has been obtained.
-if [[ $c -gt 0 ]]; then
+if [ $c -gt 0 ]; then
   decompress
 fi
 echo "$(date +%Y%m%d-%H%M): Decompression has been finished."
