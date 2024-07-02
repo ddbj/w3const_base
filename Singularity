@@ -30,6 +30,7 @@ Stage: build
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data python3-pip rename
+    apt -y install postgresql-client
     # Put base scripts, binaries
     chmod a+x /opt/w3constbin/*.sh /opt/w3constbin/*.py /opt/ncbitool/*
     #Python module
