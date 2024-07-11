@@ -110,7 +110,7 @@ getjsondb() {
         rm -f ${DATLOC}/${FNAME}
         rm -f ${DATLOC}/${FNAME}.md5
       fi
-      sleep 1
+      sleep 3
     done
     # read -p "Continue?"
     if [ "$FCHK" != "OK" ]; then
@@ -120,6 +120,7 @@ getjsondb() {
       # break for
       break
     fi
+    sleep 3
     done
 } 
 
