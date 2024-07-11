@@ -21,7 +21,7 @@ Stage: build
 %runscript
 
 %post
-    sed -i.bak -e 's%deb http://archive.ubuntu.com%deb http://linux.yz.yamagata-u.ac.jp%g' /etc/apt/sources.list
+    # sed -i.bak -e 's%deb http://archive.ubuntu.com%deb http://linux.yz.yamagata-u.ac.jp%g' /etc/apt/sources.list
     apt update
     apt -y upgrade
     apt -y install tzdata
