@@ -65,7 +65,7 @@ Stage: build
     ln -s sratoolkit.${VER}-ubuntu64 sratoolkit
     rm sratoolkit.${VER}-ubuntu64.tar.gz
     # aspera connect
-    VER="4.2.10.749"
+    VER="4.2.12.780"
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0c9pt/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
     # former aspera to obtain pubkey
     wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
