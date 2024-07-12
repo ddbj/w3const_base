@@ -90,8 +90,13 @@ getjsondb() {
     # echo $FURL
     # At the beginning, delete former targz,md5
     [ $i -eq 0 ] && rm -f ${DATLOC}/${FNAME%%.*}.*
-    curl -s -O --retry 2 $FURL.md5
-    CNT=1
+    curl -s --retry 5 -O $FURL.md5
+    if [ -e "${FNAME}.md5" ]; then
+      CNT=1
+    else
+      CNT=$(($MAXTRY+1))
+      FCHK="BAD"
+    fi
     while [ "$CNT" -le "$MAXTRY" ]; do
       FCHK=""
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
@@ -152,13 +157,13 @@ CHKARUYO=0
 if [ -e "${JSONLOC}/${v}-metadata.json" ];then
   # echo "Aruyo!"
   FORMER=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."last-updated"')
-  curl -s -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
+  curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
   LATEST=$(cat ${JSONLOC}/tmp/${v}-metadata.json | jq -r '."last-updated"')
   # LATEST=$(curl -s ${DBSRC}/${v}-metadata.json | jq -r '."last-updated"')
   # Try one more if curl is failed.
   if [ -z "$LATEST" ]; then
     sleep 10
-    curl -s -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
+    curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
     LATEST=$(cat ${JSONLOC}/tmp/${v}-metadata.json | jq -r '."last-updated"')
   fi
   # If curl is failed, let LATEST has blank not to start the downloading.
@@ -185,7 +190,7 @@ else
   # Get data, decompress
   echo "${v}, is downloading for the first time."
   c=1
-  curl -s -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
+  curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
   getjsondb
 fi
 done
