@@ -95,8 +95,8 @@ getjsondb() {
     while [ "$CNT" -le "$MAXTRY" ]; do
       FCHK=""
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
-      ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
-      # wget -q -T 60 -t 2 --waitretry=30 $FURL
+      # ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
+      wget -q -T 60 -t 2 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL
       # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL.md5
       FCHK=$(md5sum -c $FNAME.md5 | grep -o "OK")
