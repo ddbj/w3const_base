@@ -74,7 +74,9 @@ mkdir -p -m 775 ${DATLOCF}
 mkdir -p -m 775 ${JSONLOC}
 mkdir -p -m 775 ${JSONLOC}/tmp
 mkdir -p -m 775 ${BDB}
-export PATH=${HOME}/.aspera/connect/bin:$PATH
+mkdir -p -m 775 ${BASE}/log
+mkdir -p -m 775 ${LOGDIR}
+# export PATH=${HOME}/.aspera/connect/bin:$PATH
 
 # Download json metadata and blast data
 getjsondb() {
