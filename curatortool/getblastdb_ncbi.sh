@@ -48,8 +48,9 @@ DBNAME=("nr-prot" \
 DBWOMETA=("cdd_delta")
 
 MAXTRY=5
+MAXJOBS=5
 BASE="${HOME}/work-kosuge"
-LOGDIR="${BASE}/log"
+LOGDIR="${BASE}/log/getblastdb"
 DBSRC="ftp://ftp.ncbi.nih.gov/blast/db"
 DATLOC="${BASE}/ftpbldb-work"
 DATLOCF="${BASE}/ftpbldb-keep"
@@ -62,7 +63,7 @@ if [ ! -e ${BASE} ] ; then
 echo "You need to prepare ${BASE} directory before running."
 exit 1
 fi
-which ascp
+# which ascp
 if [ $? -eq 1 ] ; then
 echo "You need to install IBM aspera connect to your home."
 exit 1
@@ -82,22 +83,32 @@ getjsondb() {
     DBN=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."dbname"')
     NEWDAT+=("$DBN")
     FNUM=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."files" | length')
-    cd $DATLOC
     # 
+    cd $DATLOC
     for i in `seq 0 $(( $FNUM - 1 ))`;do
     FURL=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."files"['$i']')
     FNAME=${FURL/ftp:\/\/ftp.ncbi.nlm.nih.gov\/blast\/db\/}
     # echo $FURL
     # At the beginning, delete former targz,md5
     [ $i -eq 0 ] && rm -f ${DATLOC}/${FNAME%%.*}.*
+    # 
+    JOBNUM=$(jobs -rp | wc -l)
+    while [ $JOBNUM -ge $MAXJOBS ]; do
+      sleep 30
+      JOBNUM=$(jobs -rp | wc -l)
+    done
+    # 
     curl -s --retry 5 -O $FURL.md5
-    if [ -e "${FNAME}.md5" ]; then
+    if [ -e "${FNAME}.md5" ] && [ -s "${FNAME}.md5" ]; then
       CNT=1
     else
+      echo "${FNAME}.md5 is broken." > ${LOGDIR}/${i}.err
       CNT=$(($MAXTRY+1))
-      FCHK="BAD"
     fi
-    while [ "$CNT" -le "$MAXTRY" ]; do
+    # Job start
+    {
+    #
+    while [ $CNT -le $MAXTRY ]; do
       FCHK=""
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
       # ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
@@ -110,23 +121,36 @@ getjsondb() {
         CNT=$(($MAXTRY+1))
       else
         echo "#$CNT times tried, $FNAME is wrong."
+        FCHK="MD5err"
         CNT=$(($CNT+1))
-        FCHK="BAD"
+        echo 
         rm -f ${DATLOC}/${FNAME}
-        rm -f ${DATLOC}/${FNAME}.md5
       fi
       sleep 3
     done
-    # read -p "Continue?"
-    if [ "$FCHK" != "OK" ]; then
-      echo "$FNAME is broken. Stop the downloading of ${v} and use the former data set."
+    if [ "${FCHK}" = "MD5err" ]; then
+      echo "$FNAME is broken" > ${LOGDIR}/${i}.err
+    fi
+    } &
+    # Job end
+    # ls ${LOGDIR}/*.err
+    ls ${LOGDIR}/*.err 2>/dev/null
+    if [ "$?" = "0" ]; then
+      echo "Stop the downloading jobs and copy the former data set."
+      # Delete all running jobs
+      for j in `jobs -rp`;do
+        kill -KILL $j
+      done
       rm -f ${DATLOC}/${FNAME%%.*}.*
       cp -av ${DATLOCF}/${FNAME%%.*}.* ${DATLOC}/
+      rm -f ${LOGDIR}/*.err
       # break for
       break
     fi
-    sleep 3
+    # read -p "Continue?"
     done
+    # wait for finishing all jobs; seems to be deleted?
+    wait
 } 
 
 decompress() {
