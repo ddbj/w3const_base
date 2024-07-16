@@ -156,10 +156,13 @@ getjsondb() {
 decompress() {
   for v in "${NEWDAT[@]}"; do
   rm -f ${BDB}/${v}.*
+  {
   for targz in ${DATLOC}/${v}*.tar.gz; do
   tar xvf ${targz} -C ${BDB}/ --use-compress-program="pigz"
   done
+  } &
   done
+  wait
   # The taxdb should be decompressed again at the end of the function.
   for targz in ${DATLOC}/taxdb*.tar.gz; do
   tar xvf ${targz} -C ${BDB}/ --use-compress-program="pigz"
