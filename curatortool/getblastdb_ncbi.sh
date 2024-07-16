@@ -159,7 +159,7 @@ decompress() {
   for v in "${NEWDAT[@]}"; do
   rm -f ${BDB}/${v}.*
   {
-  for targz in ${DATLOC}/${v}*.tar.gz; do
+  for targz in ${DATLOC}/${v}.*.tar.gz; do
   tar xvf ${targz} -C ${BDB}/ --use-compress-program="pigz"
   done
   } &
