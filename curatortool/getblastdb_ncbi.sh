@@ -156,6 +156,7 @@ getjsondb() {
 } 
 
 decompress() {
+  MAX=15
   for v in "${NEWDAT[@]}"; do
   rm -f ${BDB}/${v}.*
   # 
@@ -166,7 +167,7 @@ decompress() {
   else
   for targz in ${DATLOC}/${v}.*.tar.gz; do
     JOBNUM=$(jobs -rp | wc -l)
-    while [ $JOBNUM -ge $MAXJOBS ]; do
+    while [ $JOBNUM -ge $MAX ]; do
       sleep 10
       JOBNUM=$(jobs -rp | wc -l)
     done
