@@ -159,15 +159,22 @@ decompress() {
   for v in "${NEWDAT[@]}"; do
   rm -f ${BDB}/${v}.*
   # 
-  {
   if [ -e ${DATLOC}/${v}.tar.gz ];then
+  {
     tar xvf ${DATLOC}/${v}.tar.gz -C ${BDB}/ --use-compress-program="pigz"
-  else
-    for targz in ${DATLOC}/${v}.*.tar.gz; do
-      tar xvf ${targz} -C ${BDB}/ --use-compress-program="pigz"
-    done
-  fi
   } &
+  else
+  for targz in ${DATLOC}/${v}.*.tar.gz; do
+    JOBNUM=$(jobs -rp | wc -l)
+    while [ $JOBNUM -ge $MAXJOBS ]; do
+      sleep 10
+      JOBNUM=$(jobs -rp | wc -l)
+    done
+    {
+      tar xvf ${targz} -C ${BDB}/ --use-compress-program="pigz"
+    } &
+  done
+  fi
   done
   wait
   # The taxdb should be decompressed again at the end of the function.
