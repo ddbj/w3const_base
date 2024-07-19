@@ -5,6 +5,7 @@ Stage: build
 # path, BLASTMAT (blast matrices)
 %environment
     export PATH=/home/w3const/systool/ncbitool:/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast/bin:/opt/ncbitool:/opt/sratoolkit/bin:/opt/aspera/connect/bin:$PATH
+    export BLASTDB=/home/ddbjshare/blast/db/v5
     export BLASTMAT=/opt/blastmatrix
 
 %setup
