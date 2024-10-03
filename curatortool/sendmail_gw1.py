@@ -69,6 +69,16 @@ def chkwhite(e):
         print('Write an email address in each line.')
         sys.exit()
 
+def chksendermail(a):
+    c = a.split('@')
+    if not len(c) == 2:
+        return('wrong')
+    else:
+        if c[1] == 'ddbj.nig.ac.jp' or c[1] == 'nig.ac.jp':
+            return('good')
+        else:
+            return('wrong')
+
 def sendemail(account, pwd, subject, sendfrom, to, body, cc, bcc, attach):
     msg = EmailMessage()
     msg['Subject'] = subject
@@ -110,8 +120,12 @@ def main():
         emails += opt.cc.split(',')
     if opt.bcc:
         emails += opt.bcc.split(',')
-    if opt.sender:
-        fromaddr = opt.sender
+    if opt.sender:        
+        if chksendermail(opt.sender) == 'good':
+            fromaddr = opt.sender
+        else:
+            print('Error. Sender address is not ddbj or nig domain.')
+            sys.exit()
     else:
         fromaddr = accnt[0]
     # print(emails)
