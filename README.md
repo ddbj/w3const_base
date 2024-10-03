@@ -56,7 +56,7 @@ cd /home/w3const
 singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_w3const.py --sj "てすとです" --to addr1,addr2 --body /home/w3const/work-kosuge/emailbody.txt
 ~~~
 
-## sendgmail_gw1.py
+## sendmail_gw1.py
 You can send email only when sender address is *nig* and *ddbj* domain. Works only in supercomputer nodes.
 
 You must prepare whitelist file as mentioned above.
