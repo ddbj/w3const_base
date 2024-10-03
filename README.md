@@ -8,7 +8,7 @@ git clone https://github.com/ddbj/w3const_base.git
 sudo singularity build constbase.sif ~/w3const_base/Singularity
 ~~~
 
-** *curatortool* directory contains the following scripts and binaries.**
+*curatortool* directory contains the following scripts and binaries.
 
 ## getblastdb_ncbi.sh
 Download blast/db data from NCBI by using aspera connect and decompress to the blastdb directory.
