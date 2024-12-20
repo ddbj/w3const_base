@@ -37,8 +37,10 @@ Stage: build
     #Python module
     pip install biopython
     # Parser, transchecker
-    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/Parser_V6.75.tar.gz -O /opt/jparser.tar.gz
-    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/transChecker_V2.26.tar.gz -O /opt/transChecker.tar.gz
+    PARSER=$(curl -sL https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/ | grep -oP href=\"Parser_V[0-9].[0-9]+.tar.gz\" | sed -e 's/"//g' -e 's/href=//')
+    TCHECKER=$(curl -sL https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/ | grep -oP href=\"transChecker_V[0-9].[0-9]+.tar.gz\" | sed -e 's/"//g' -e 's/href=//')
+    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/${PARSER} -O /opt/jparser.tar.gz
+    wget https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/${TCHECKER} -O /opt/transChecker.tar.gz
     cd /opt
     for v in /opt/*.tar.gz; do
     tar xvfz $v
