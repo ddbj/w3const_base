@@ -25,10 +25,12 @@ Stage: build
     # sed -i.bak -e 's%deb http://archive.ubuntu.com%deb http://linux.yz.yamagata-u.ac.jp%g' /etc/apt/sources.list
     apt update
     apt -y upgrade
-    apt -y install tzdata
-    ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+    # apt -y install tzdata
     DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+    ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime    
     dpkg-reconfigure --frontend noninteractive tzdata
+    apt -y install language-pack-en language-pack-ja
+    update-locale LANG=ja_JP.UTF-8
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data python3-pip rename
     apt -y install postgresql-client postgresql-client-common
