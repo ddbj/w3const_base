@@ -30,6 +30,7 @@ Stage: build
     ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime    
     dpkg-reconfigure --frontend noninteractive tzdata
     apt -y install language-pack-en language-pack-ja
+    apt -y install fonts-noto-cjk fonts-noto-core fonts-noto-mono
     update-locale LANG=ja_JP.UTF-8
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data python3-pip rename
@@ -72,7 +73,7 @@ Stage: build
     # aspera connect
     # VER="4.2.12.780"
     # wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0c9pt/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
-    ASCPLATEST="https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.12.780_linux_x86_64.tar.gz"
+    ASCPLATEST="https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.13.820_linux_x86_64.tar.gz"
     VER=$(echo ${ASCPLATEST} | awk -F'_' '{print $2}')
     wget -P /root ${ASCPLATEST}
     # former aspera to obtain pubkey
