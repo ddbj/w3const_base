@@ -48,7 +48,7 @@ DBNAME=("nr-prot" \
 DBWOMETA=("cdd_delta")
 
 MAXTRY=5
-MAXJOBS=5
+MAXJOBS=8
 BASE="${HOME}/work-kosuge"
 LOGDIR="${BASE}/log/getblastdb"
 DBSRC="ftp://ftp.ncbi.nih.gov/blast/db"
@@ -156,7 +156,7 @@ getjsondb() {
 } 
 
 decompress() {
-  MAX=15
+  MAX=16
   for v in "${NEWDAT[@]}"; do
   rm -f ${BDB}/${v}.*
   # 
