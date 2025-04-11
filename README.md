@@ -56,14 +56,14 @@ cd /home/w3const
 singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_w3const.py --sj "てすとです" --to addr1,addr2 --body /home/w3const/work-kosuge/emailbody.txt
 ~~~
 
-## sendmail_gw1.py
-You can send email only when sender address is *nig* and *ddbj* domain. Works only in supercomputer nodes.
+## sendmail_25.py, sendmail_465.py, sendmail_465-ignoreWL.py
+You can send email only when sender address is *nig* and *ddbj* domain. Works only in supercomputer nodes. The difference between '_25' and '_465' is the smtp port number to send emails. The python script '_25' sends email in plain-text to mailgw in supercomputer but '_465' uses SSL for transporting the email to mailgw. It is better to use _465, if you care about the security.
 
-You must prepare whitelist file as mentioned above.
+For using sendmail_25.py and sendmail_465.py, you must prepare whitelist file as mentioned above. The sendmail_465-ignoreWL.py does not require whitelist file because it does not have whitelist function.
 
 Usage
 ~~~
-singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_gw1.py --sender foo@ddbj.nig.ac.jp --sj "てすとです" --to addr1,addr2 --body /home/w3const/work-kosuge/emailbody.txt
+singularity exec /home/w3const/work-kosuge/constbase.sif sendgmail_gw465.py --sender foo@ddbj.nig.ac.jp --sj "てすとです" --to addr1,addr2 --body /home/w3const/work-kosuge/emailbody.txt
 ~~~
 
 
