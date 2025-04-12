@@ -6,7 +6,8 @@
 
 export LANG=C
 # Blast databases having their own meta file.
-DBNAME=("nr-prot" \
+DBNAME=("core_nt-nucl" \
+"nr-prot" \
 "nt-nucl" \
 "nt_euk-nucl" \
 "nt_prok-nucl" \
@@ -48,7 +49,8 @@ DBNAME=("nr-prot" \
 DBWOMETA=("cdd_delta")
 
 MAXTRY=5
-MAXJOBS=8
+MAXDWJOBS=10
+MAXDECOMPJOB=24
 BASE="${HOME}/work-kosuge"
 LOGDIR="${BASE}/log/getblastdb"
 DBSRC="ftp://ftp.ncbi.nih.gov/blast/db"
@@ -95,7 +97,7 @@ getjsondb() {
     [ $i -eq 0 ] && rm -f ${DATLOC}/${FNAME%%.*}.*
     # 
     JOBNUM=$(jobs -rp | wc -l)
-    while [ $JOBNUM -ge $MAXJOBS ]; do
+    while [ $JOBNUM -ge $MAXDWJOBS ]; do
       sleep 30
       JOBNUM=$(jobs -rp | wc -l)
     done
@@ -156,7 +158,7 @@ getjsondb() {
 } 
 
 decompress() {
-  MAX=16
+  MAX=${MAXDECOMPJOB}
   for v in "${NEWDAT[@]}"; do
   rm -f ${BDB}/${v}.*
   # 
