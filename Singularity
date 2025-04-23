@@ -17,6 +17,7 @@ Stage: build
 %files
     curatortool/* /opt/w3constbin
     ncbi-blast-matrices.tar.gz /opt
+    ibm-aspera-connect_4.1.3.93_linux.tar.gz /root
     ncbitool/* /opt/ncbitool
 
 %runscript
@@ -77,8 +78,8 @@ Stage: build
     ASCPLATEST="https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.13.820_linux_x86_64.tar.gz"
     VER=$(echo ${ASCPLATEST} | awk -F'_' '{print $2}')
     wget -P /root ${ASCPLATEST}
-    # former aspera to obtain pubkey
-    wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
+    # former aspera to obtain pubkey, ver 4.1.3.93 is on /root
+    # wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0adrj/0/ibm-aspera-connect_4.1.3.93_linux.tar.gz
     tar xvfz /root/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz -C /root
     tar xvfz /root/ibm-aspera-connect_4.1.3.93_linux.tar.gz -C /root
     bash /root/ibm-aspera-connect_4.1.3.93_linux.sh
