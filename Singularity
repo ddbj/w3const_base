@@ -4,7 +4,7 @@ Stage: build
 
 # path, BLASTMAT (blast matrices)
 %environment
-    export PATH=/home/w3const/systool/ncbitool:/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast/bin:/opt/ncbitool:/opt/sratoolkit/bin:/opt/aspera/connect/bin:$PATH
+    export PATH=/home/w3const/systool/ncbitool:/opt/w3constbin:/opt/jParser:/opt/transChecker:/opt/ncbi-blast/bin:/opt/ncbitool:/opt/sratoolkit/bin:/opt/aspera/connect/bin:/opt/edirect:$PATH
     export BLASTDB=/opt/blastdb
     export BLASTMAT=/opt/blastmatrix
 
@@ -57,6 +57,7 @@ Stage: build
     chmod +x ./jParser/jParser.sh ./transChecker/transChecker.sh
     chmod 644 ./jParser/jar/*.jar ./transChecker/jar/*.jar
     # blast bin
+    cd /opt
     VER=$(curl -s https://ftp.ncbi.nih.gov/blast/executables/blast+/VERSION)
     wget ftp://ftp.ncbi.nih.gov/blast/executables/blast+/${VER}/ncbi-blast-${VER}+-x64-linux.tar.gz
     tar xvfz ncbi-blast-${VER}+-x64-linux.tar.gz
@@ -72,6 +73,18 @@ Stage: build
     tar xvfz sratoolkit.${VER}-ubuntu64.tar.gz
     ln -s sratoolkit.${VER}-ubuntu64 sratoolkit
     rm sratoolkit.${VER}-ubuntu64.tar.gz
+    # E-utilities NCBI, https://www.ncbi.nlm.nih.gov/books/NBK179288/
+    wget ftp://ftp.ncbi.nih.gov/entrez/entrezdirect/edirect.tar.gz
+    wget ftp://ftp.ncbi.nih.gov/entrez/entrezdirect/rchive.Linux.gz
+    wget ftp://ftp.ncbi.nih.gov/entrez/entrezdirect/transmute.Linux.gz
+    wget ftp://ftp.ncbi.nih.gov/entrez/entrezdirect/xtract.Linux.gz    
+    tar xvfz edirect.tar.gz
+    rm -f edirect.tar.gz
+    gunzip rchive.Linux.gz
+    gunzip transmute.Linux.gz
+    gunzip xtract.Linux.gz
+    chmod a+x rchive.Linux transmute.Linux xtract.Linux
+    mv rchive.Linux transmute.Linux xtract.Linux edirect/
     # aspera connect
     # VER="4.2.12.780"
     # wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0c9pt/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
