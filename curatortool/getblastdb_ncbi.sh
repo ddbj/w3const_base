@@ -191,7 +191,7 @@ keepdat() {
 }
 
 syncdbjshare() {
-  rsync -vt --delete ${BDB}/ ${DBJSHR}/
+  rsync -vtr --delete ${BDB}/ ${DBJSHR}/
 }
 
 # Main
