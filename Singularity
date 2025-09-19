@@ -35,7 +35,8 @@ Stage: build
     update-locale LANG=ja_JP.UTF-8
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data rename vim
-    apt -y install python3-pip python3-venv python3-schedule python3-pandas python3-numpy 
+    apt -y install python3-pip python3-venv python3-schedule python3-pandas python3-numpy
+    apt -y install python3-psycopg2 python3-dateutil python3-dotenv 
     apt -y install postgresql-client postgresql-client-common
     # Put base scripts, binaries
     chmod a+x /opt/w3constbin/*.sh /opt/w3constbin/*.py /opt/ncbitool/*
