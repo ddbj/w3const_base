@@ -59,6 +59,7 @@ DATLOCF="${BASE}/ftpbldb-keep"
 JSONLOC="${BASE}/ftpbldb-json"
 BDB="${BASE}/blastdbv5"
 DBJSHR="/home/w3constshare"
+DBJSHRALT="/home/ddbjshare/blast/db/v5"
 NEWDAT=()
 
 if [ ! -e ${BASE} ] ; then
@@ -192,6 +193,7 @@ keepdat() {
 
 syncdbjshare() {
   rsync -vtr --delete ${BDB}/ ${DBJSHR}/
+  rsync -vtr --delete ${BDB}/ ${DBJSHRALT}/ 
 }
 
 # Main
