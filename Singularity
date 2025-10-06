@@ -87,9 +87,7 @@ Stage: build
     chmod a+x rchive.Linux transmute.Linux xtract.Linux
     mv rchive.Linux transmute.Linux xtract.Linux edirect/
     # aspera connect
-    # VER="4.2.12.780"
-    # wget -P /root https://ak-delivery04-mul.dhe.ibm.com/sar/CMA/OSA/0c9pt/0/ibm-aspera-connect_${VER}_linux_x86_64.tar.gz
-    ASCPLATEST="https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.13.820_linux_x86_64.tar.gz"
+    ASCPLATEST="https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.16.884-HEAD_linux_x86_64.tar.gz"
     VER=$(echo ${ASCPLATEST} | awk -F'_' '{print $2}')
     wget -P /root ${ASCPLATEST}
     # former aspera to obtain pubkey, ver 4.1.3.93 is on /root
