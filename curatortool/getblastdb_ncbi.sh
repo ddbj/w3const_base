@@ -94,7 +94,7 @@ getjsondb() {
     for i in `seq 0 $(( $FNUM - 1 ))`;do
     FURL=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."files"['$i']')
     FNAME=${FURL/ftp:\/\/ftp.ncbi.nlm.nih.gov\/blast\/db\/}
-    FURL2=${FURL/ftp:/https:/}
+    FURL2=${FURL/ftp:/https:}
     # echo $FURL2
     # At the beginning, delete former targz,md5
     [ $i -eq 0 ] && rm -f ${DATLOC}/${FNAME%%.*}.*
