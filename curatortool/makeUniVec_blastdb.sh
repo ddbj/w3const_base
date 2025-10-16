@@ -22,7 +22,7 @@ mkdir -p ${FTP}
 mkdir -p ${FTP}/archiveconst
 mkdir -p ${FTP}/tmp
 
-# wget前に UniVec_Core, README.uv, UniVec を日付をつけてtmpに避難
+# wget前に UniVec_Core, UniVec を日付をつけてtmpに避難
 rm -f ${FTP}/tmp/*
 cd ${FTP}
 if test -f ./UniVec/UniVec_Core
@@ -33,38 +33,28 @@ then
   cp -a ./UniVec/UniVec_Core ./tmp/${DATE}UniVec_Core
 fi
 
-if test -f ./UniVec/README.uv
-then
-  DATE=`ls -l --time-style=+%Y%m%d UniVec/README.uv | sed -e 's/  */ /g'| cut -d " " -f6`
-  cp -a ./UniVec/README.uv ./tmp/${DATE}README.uv
-fi
-
 if test -f ./UniVec/UniVec
 then
   DATE=`ls -l --time-style=+%Y%m%d UniVec/UniVec | sed -e 's/  */ /g'| cut -d " " -f6`
   cp -a ./UniVec/UniVec ./tmp/${DATE}UniVec
 fi
 
-## wget 実行, -np=no parent, -nd=no directory, -m=mirroring
-rm -f ${DIR}/wgetmirror.log
-wget -nH --cut-dirs=1 -m ftp://ftp.ncbi.nih.gov/pub/UniVec/ -o ${DIR}/wgetmirror.log
-# -nH … ホスト名のディレクトリを作らない; --cut-dirs=1 ... pubディレクトリーまで作成しない
+# README etc.
+wget -m -nH --cut-dirs=1 https://ftp.ncbi.nih.gov/pub/UniVec/README.uv
+wget -m -nH --cut-dirs=1 https://ftp.ncbi.nih.gov/pub/UniVec/README.vector.origins
+wget -m -nH --cut-dirs=1 https://ftp.ncbi.nih.gov/pub/UniVec/artificial_intervals_5column.txt
+wget -m -nH --cut-dirs=1 https://ftp.ncbi.nih.gov/pub/UniVec/artificial_whole_UniVec_entries.txt
+wget -m -nH --cut-dirs=1 https://ftp.ncbi.nih.gov/pub/UniVec/biological_intervals_5column.txt
 
-# README\.uv' *へ保存終了
-if grep -P "README\.uv' saved" ${DIR}/wgetmirror.log >/dev/null 2>&1; then
-  # tmpに避難したファイルがあればarchiveconstにmvする
-  if test -f ./tmp/*README.uv; then
-     mv ./tmp/*README.uv ./archiveconst/
-  fi
-  echo "`date +%Y%m%d`: README.uv (ver `ls -l --time-style=+%Y%m%d ./UniVec/README.uv | sed -e 's/  */ /g' | cut -d " " -f6`) was downloaded."
-else
-  rm ${FTP}/tmp/*README.uv
-  echo "`date +%Y%m%d`: No need to update README.uv."
-fi
+## wget UniVec実行, -np=no parent, -nd=no directory, -m=mirroring
+rm -f ${DIR}/wgetmirror.log
+# wget -nH --cut-dirs=1 -m ftp://ftp.ncbi.nih.gov/pub/UniVec/ -o ${DIR}/wgetmirror.log
+wget -m -nH --cut-dirs=1 -o ${DIR}/wgetmirror.log https://ftp.ncbi.nih.gov/pub/UniVec/UniVec
+# -nH … ホスト名のディレクトリを作らない; --cut-dirs=1 ... ディレクトリーまで作成しない
 
 # UniVec' *へ保存終了
 if grep -P "UniVec' saved" ${DIR}/wgetmirror.log >/dev/null 2>&1; then
-  # tmpに避難したファイルがあればarchiveconstにmvする
+  # tmpに避難したDATE付きのファイルをarchiveconstにmvする
   if test -f ./tmp/*UniVec; then
      mv ./tmp/*UniVec ./archiveconst/
   fi
@@ -82,8 +72,10 @@ else
   echo "`date +%Y%m%d`: No need to update UniVec."
 fi
 
-# UniVec_Core' *へ保存終了
+# wget UniVec_Core
 cd ${FTP}
+wget -m -nH --cut-dirs=1 -o ${DIR}/wgetmirror.log https://ftp.ncbi.nih.gov/pub/UniVec/UniVec_Core
+# UniVec_Core' *へ保存終了
 if grep -P "UniVec_Core' saved" ${DIR}/wgetmirror.log >/dev/null 2>&1; then
   # tmpに避難したファイルがあればarchiveconstにmvする
   if test -f ./tmp/*UniVec_Core; then
