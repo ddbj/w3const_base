@@ -54,6 +54,7 @@ MAXDECOMPJOB=24
 BASE="${HOME}/work-kosuge"
 LOGDIR="${BASE}/log/getblastdb"
 DBSRC="ftp://ftp.ncbi.nih.gov/blast/db"
+DBSRC2="https://ftp.ncbi.nih.gov/blast/db"
 DATLOC="${BASE}/ftpbldb-work"
 DATLOCF="${BASE}/ftpbldb-keep"
 JSONLOC="${BASE}/ftpbldb-json"
@@ -83,7 +84,7 @@ mkdir -p -m 775 ${LOGDIR}
 
 # Download json metadata and blast data
 getjsondb() {
-    # curl -s -o ${JSONLOC}/${v}-metadata.json ${DBSRC}/${v}-metadata.json
+    # curl -s -o ${JSONLOC}/${v}-metadata.json ${DBSRC2}/${v}-metadata.json
     mv -f ${JSONLOC}/tmp/${v}-metadata.json ${JSONLOC}/
     DBN=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."dbname"')
     NEWDAT+=("$DBN")
@@ -93,7 +94,8 @@ getjsondb() {
     for i in `seq 0 $(( $FNUM - 1 ))`;do
     FURL=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."files"['$i']')
     FNAME=${FURL/ftp:\/\/ftp.ncbi.nlm.nih.gov\/blast\/db\/}
-    # echo $FURL
+    FURL2=${FURL/ftp:/https:/}
+    # echo $FURL2
     # At the beginning, delete former targz,md5
     [ $i -eq 0 ] && rm -f ${DATLOC}/${FNAME%%.*}.*
     # 
@@ -103,7 +105,7 @@ getjsondb() {
       JOBNUM=$(jobs -rp | wc -l)
     done
     # 
-    curl -s --retry 5 -O $FURL.md5
+    curl -s --retry 5 -O $FURL2.md5
     if [ -e "${FNAME}.md5" ] && [ -s "${FNAME}.md5" ]; then
       CNT=1
     else
@@ -117,9 +119,9 @@ getjsondb() {
       FCHK=""
       # ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l800m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
       # ascp -i /opt/aspera/connect/etc/asperaweb_id_dsa.openssh -T -k1 -l400m anonftp@ftp.ncbi.nlm.nih.gov:blast/db/${FNAME} ./
-      wget -q -T 60 -t 2 --waitretry=30 $FURL
-      # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL
-      # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL.md5
+      wget -q -T 60 -t 2 --waitretry=30 $FURL2
+      # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL2
+      # wget -q -P ${DATLOC} -T 60 -t 3 --waitretry=30 $FURL2.md5
       FCHK=$(md5sum -c $FNAME.md5 | grep -o "OK")
       if [ "$FCHK" = "OK" ]; then
         echo "$(date +%Y%m%d-%H%M): $FNAME is good"
@@ -203,13 +205,13 @@ CHKARUYO=0
 if [ -e "${JSONLOC}/${v}-metadata.json" ];then
   # echo "Aruyo!"
   FORMER=$(cat ${JSONLOC}/${v}-metadata.json | jq -r '."last-updated"')
-  curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
+  curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC2}/${v}-metadata.json
   LATEST=$(cat ${JSONLOC}/tmp/${v}-metadata.json | jq -r '."last-updated"')
-  # LATEST=$(curl -s ${DBSRC}/${v}-metadata.json | jq -r '."last-updated"')
+  # LATEST=$(curl -s ${DBSRC2}/${v}-metadata.json | jq -r '."last-updated"')
   # Try one more if curl is failed.
   if [ -z "$LATEST" ]; then
     sleep 10
-    curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
+    curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC2}/${v}-metadata.json
     LATEST=$(cat ${JSONLOC}/tmp/${v}-metadata.json | jq -r '."last-updated"')
   fi
   # If curl is failed, let LATEST has blank not to start the downloading.
@@ -236,15 +238,15 @@ else
   # Get data, decompress
   echo "${v}, is downloading for the first time."
   c=1
-  curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC}/${v}-metadata.json
+  curl -s --retry 5 -o ${JSONLOC}/tmp/${v}-metadata.json ${DBSRC2}/${v}-metadata.json
   getjsondb
 fi
 done
 
 # CDD (no metadata)
 cddmirror() {
-  wget -o ${JSONLOC}/${v}.log -m -nd -w 10 -t 5 -P ${DATLOC} ${DBSRC}/${v}.tar.gz.md5
-  wget -m -nd -w 10 -t 5 -P ${DATLOC} ${DBSRC}/${v}.tar.gz
+  wget -o ${JSONLOC}/${v}.log -m -nd -w 10 -t 5 -P ${DATLOC} ${DBSRC2}/${v}.tar.gz.md5
+  wget -m -nd -w 10 -t 5 -P ${DATLOC} ${DBSRC2}/${v}.tar.gz
   rm -f ${DATLOC}/.listing
 }
 
