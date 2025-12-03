@@ -34,10 +34,15 @@ Stage: build
     apt -y install fonts-noto-cjk fonts-noto-core fonts-noto-mono
     update-locale LANG=ja_JP.UTF-8
     apt -y install build-essential
-    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data rename vim
+    apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data rename vim aptitude
     apt -y install python3-pip python3-venv python3-schedule python3-pandas python3-numpy
-    apt -y install python3-psycopg2 python3-dateutil python3-dotenv 
+    apt -y install python3-psycopg2 python3-dateutil python3-dotenv
     apt -y install postgresql-client postgresql-client-common
+    apt -y install r-base r-base-core r-recommended
+    apt -y install r-cran-bh r-cran-r6 r-cran-rcolorbrewer r-cran-rcpp r-cran-snowballc r-cran-cli r-cran-colorspace r-cran-cpp11 r-cran-data.table r-cran-doparallel r-cran-dplyr r-cran-fansi r-cran-farver r-cran-forcats r-cran-foreach r-cran-generics r-cran-glue r-cran-iterators r-cran-labeling r-cran-lifecycle r-cran-magrittr r-cran-munsell r-cran-pillar r-cran-pkgconfig r-cran-purrr r-cran-rlang r-cran-scales r-cran-stringdist r-cran-stringi r-cran-stringr  r-cran-tibble r-cran-tibble r-cran-tidyr r-cran-tidyselect r-cran-tidyverse r-cran-utf8 r-cran-vctrs r-cran-viridislite r-cran-withr 
+    # R additional packages
+    Rscript -e 'install.packages("fedmatch", repos="https://cloud.r-project.org")'
+    Rscript -e 'install.packages("gt", repos="https://cloud.r-project.org")'
     # Put base scripts, binaries
     chmod a+x /opt/w3constbin/*.sh /opt/w3constbin/*.py /opt/ncbitool/*
     #Python module
@@ -87,7 +92,8 @@ Stage: build
     chmod a+x rchive.Linux transmute.Linux xtract.Linux
     mv rchive.Linux transmute.Linux xtract.Linux edirect/
     # aspera connect
-    ASCPLATEST="https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.16.884-HEAD_linux_x86_64.tar.gz"
+    # ASCPLATEST="https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_4.2.18.918-HEAD_linux_x86_64.tar.gz"
+    ASCPLATEST=$(curl -s https://www.ibm.com/jp-ja/products/aspera/downloads | grep -oP "(?<=href=\")https://d3gcli72yxqn2z.cloudfront.net/downloads/connect/latest/bin/ibm-aspera-connect_.*linux_x86_64.tar.gz")
     VER=$(echo ${ASCPLATEST} | awk -F'_' '{print $2}')
     wget -P /root ${ASCPLATEST}
     # former aspera to obtain pubkey, ver 4.1.3.93 is on /root
@@ -110,4 +116,4 @@ Stage: build
 
 %labels
     Author tkosuge
-    Version 1
+    Version 2025-12-03
