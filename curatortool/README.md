@@ -1,5 +1,6 @@
 ### NCBI Blast db downloader, getblastdb_ncbi.sh and makeUniVec_blastdb.sh, are running @a012
 
+[get-blastdb.sh](https://github.com/ddbj/w3const_base/blob/main/curatortool/get-blastdb.sh)
 ~~~shell
 @a12:/home/w3const/work-kosuge/task/get-blastdb.sh
 #!/bin/bash
