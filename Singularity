@@ -36,7 +36,7 @@ Stage: build
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data rename vim aptitude
     apt -y install python3-pip python3-venv python3-schedule python3-pandas python3-numpy
-    apt -y install python3-psycopg2 python3-dateutil python3-dotenv
+    apt -y install python3-psycopg2 python3-dateutil python3-dotenv python3-ete3
     apt -y install postgresql-client postgresql-client-common
     apt -y install r-base r-base-core r-recommended
     apt -y install r-cran-bh r-cran-r6 r-cran-rcolorbrewer r-cran-rcpp r-cran-snowballc r-cran-cli r-cran-colorspace r-cran-cpp11 r-cran-data.table r-cran-doparallel r-cran-dplyr r-cran-fansi r-cran-farver r-cran-forcats r-cran-foreach r-cran-generics r-cran-glue r-cran-iterators r-cran-labeling r-cran-lifecycle r-cran-magrittr r-cran-munsell r-cran-pillar r-cran-pkgconfig r-cran-purrr r-cran-rlang r-cran-scales r-cran-stringdist r-cran-stringi r-cran-stringr  r-cran-tibble r-cran-tibble r-cran-tidyr r-cran-tidyselect r-cran-tidyverse r-cran-utf8 r-cran-vctrs r-cran-viridislite r-cran-withr 
