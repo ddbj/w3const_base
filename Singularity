@@ -1,6 +1,10 @@
-Bootstrap: library
-From: ubuntu:22.04
-Stage: build
+Bootstrap: docker
+From: ubuntu:24.04
+
+# Former
+# Bootstrap: library
+# From: ubuntu:22.04
+# Stage: build
 
 # path, BLASTMAT (blast matrices)
 %environment
@@ -35,6 +39,7 @@ Stage: build
     update-locale LANG=ja_JP.UTF-8
     apt -y install build-essential
     apt -y install autoconf bison libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses-dev libffi-dev libgdm1 libgdbm-dev git bash-completion wget curl jq pigz lftp rsync openjdk-17-jre emboss emboss-data rename vim aptitude
+    apt -y install x11-apps x11-utils x11-xserver-utils xorg-docs xfonts-scalable xfonts-75dpi xfonts-100dpi
     apt -y install python3-pip python3-venv python3-schedule python3-pandas python3-numpy
     apt -y install python3-psycopg2 python3-dateutil python3-dotenv python3-ete3
     apt -y install postgresql-client postgresql-client-common
@@ -46,7 +51,7 @@ Stage: build
     # Put base scripts, binaries
     chmod a+x /opt/w3constbin/*.sh /opt/w3constbin/*.py /opt/ncbitool/*
     #Python module
-    pip install biopython
+    pip install --break-system-packages biopython
     # Parser, transchecker
     PARSER=$(curl -sL https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/ | grep -oP href=\"Parser_V[0-9].[0-9]+.tar.gz\" | sed -e 's/"//g' -e 's/href=//')
     TCHECKER=$(curl -sL https://ddbj.nig.ac.jp/public/ddbj-cib/MSS/ | grep -oP href=\"transChecker_V[0-9].[0-9]+.tar.gz\" | sed -e 's/"//g' -e 's/href=//')
@@ -116,4 +121,4 @@ Stage: build
 
 %labels
     Author tkosuge
-    Version 2025-12-03
+    Version 2026-7-8
